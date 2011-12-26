@@ -27,6 +27,9 @@ class Hungarian
   def solve(matrix = nil)
     setup(matrix) if matrix
     raise(ArgumentError, "You must provide a matrix to solve.") unless @matrix
+    raise(ArgumentError, "The matrix may not be empty.") if @matrix.empty? || @matrix.any?(&:empty?)
+    raise(ArgumentError, "The matrix provided must be rectangular.") unless @matrix.map(&:length).uniq.size == 1
+    raise(ArgumentError, "The matrix provided must have at least as many columns as rows.") if @matrix.length > @matrix.first.length
     
     method = :minimize_rows
     while method != :finished

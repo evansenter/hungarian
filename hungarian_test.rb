@@ -11,6 +11,38 @@ class TraitTest < Test::Unit::TestCase
   def test_true
     assert true
   end
+  
+  def test_solve
+    assert_equal [[0, 0], [1, 1], [2, 2]], Hungarian.solve([[1, 2, 3], [1, 0, 1], [2, 2, 2]])
+  end
+  
+  def test_ensure_matrix_is_present
+    assert_raise(ArgumentError) do
+      Hungarian.solve
+    end
+  end
+  
+  def test_ensure_matrix_is_not_empty
+    assert_raise(ArgumentError) do
+      Hungarian.solve([])
+    end
+    
+    assert_raise(ArgumentError) do
+      Hungarian.solve([[]])
+    end
+  end
+  
+  def test_ensure_matrix_is_rectangular
+    assert_raise(ArgumentError) do
+      Hungarian.solve([[1, 2], [1], [2, 2]])
+    end
+  end
+  
+  def test_ensure_more_columns_than_rows
+    assert_raise(ArgumentError) do
+      Hungarian.solve([[1, 2], [1, 0], [2, 2]])
+    end
+  end
 
   def test_minimize_rows
     @hungarian.instance_variable_set(:@matrix, [[1, 2, 3], [1, 0, 1], [2, 2, 2]])
