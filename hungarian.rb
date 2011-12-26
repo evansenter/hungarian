@@ -20,6 +20,8 @@ class Hungarian
   STAR  = 1
   PRIME = 2
   
+  def self.solve(matrix); new(matrix).solve; end
+  
   def initialize(matrix = nil); setup(matrix) if matrix; end
     
   def solve(matrix = nil)

@@ -1,7 +1,7 @@
 require "rubygems"
 require "test/unit"
 require "mocha"
-require "hungarian"
+require "./hungarian.rb"
 
 class TraitTest < Test::Unit::TestCase
   def setup
